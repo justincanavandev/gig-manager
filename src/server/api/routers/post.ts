@@ -15,13 +15,21 @@ export const postRouter = createTRPCRouter({
       };
     }),
 
+  getAll: protectedProcedure.query(async ({ ctx }) => {
+    try {
+      return await ctx.db.post.findMany();
+    } catch (e) {
+      throw e
+    }
+  }),
+
   create: protectedProcedure
     .input(z.object({ name: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
-      // simulate a slow db call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // // simulate a slow db call
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      return ctx.db.post.create({
+      return await ctx.db.post.create({
         data: {
           name: input.name,
           createdBy: { connect: { id: ctx.session.user.id } },
