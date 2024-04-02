@@ -72,10 +72,39 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
+// model Musician {
+//     id          String     @id @default(cuid())
+//     name        String
+//     instrument  String
+//     phoneNumber String
+//     email       String
+// }
+
 model Musician {
-    id          String     @id @default(cuid())
-    name        String
-    instrument  String
-    phoneNumber String
-    email       String
+    id                     Int                      @id @default(autoincrement())
+    name                   String
+    instruments            Instrument[]
+    phoneNumber            String
+    MusiciansOnInstruments MusiciansOnInstruments[]
 }
+
+model Instrument {
+    id                     Int                      @id @default(autoincrement())
+    name                   String
+    musicians              Musician[]
+    MusiciansOnInstruments MusiciansOnInstruments[]
+}
+
+model MusiciansOnInstruments {
+    musician     Musician   @relation(fields: [musicianId], references: [id])
+    musicianId   Int
+    instrument   Instrument @relation(fields: [instrumentId], references: [id])
+    instrumentId Int
+
+    @@id([musicianId, instrumentId])
+}
+
+// Musician to Instrument --- many to many
+
+// Gig to musician --- many to many
+// Gig to Instrument --- many to many
