@@ -85,6 +85,7 @@ model Musician {
     name                   String
     instruments            Instrument[]
     phoneNumber            String
+    email                  String                   @unique
     MusiciansOnInstruments MusiciansOnInstruments[]
 }
 

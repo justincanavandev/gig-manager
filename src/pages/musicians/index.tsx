@@ -6,33 +6,28 @@ const Musicians = () => {
 //   const { data: allMusicians } = api.musician.getAll.useQuery();
 
   const { data: session } = useSession();
+  
 
   const user = session?.user;
-  // const { mutate: addMusician } = api.musician.create.useMutation();
+  const { mutate: addMusician } = api.musician.create.useMutation();
 
   // const { mutate: deleteMusician } = api.musician.delete.useMutation();
 
-  // const handleCreateMusician = () => {
-  //   try {
-  //     // const result = api.post.create.useMutation();
-  //     const result = addMusician({
-  //       name: "Steven",
-  //       instrument: "drums",
-  //       phoneNumber: "201-314-1421",
-  //       email: "scanavan@gmail.com",
-  //     });
-  //     console.log("result", result);
+  const handleCreateMusician = () => {
+    try {
+      const result = addMusician({
+        name: "Jonathan",
+        instrument: "Guitar",
+        phoneNumber: "210-218-8720",
+        email: "jginny@gmail.com",
+      });
 
-  //     // Access the result if needed
-  //     // console.log(result.data);
-
-  //     return result;
-  //   } catch (error) {
-  //     // Handle the error
-  //     console.error("Error creating post:", error);
-  //     throw error;
-  //   }
-  // };
+      return result;
+    } catch (error) {
+      console.error("Error creating musician", error);
+      throw error;
+    }
+  };
 
   // const handleDeleteMusician = () => {
   //   try {
@@ -58,8 +53,8 @@ const Musicians = () => {
             <p> {musician.instrument}</p>
           </div>
         ))} */}
-      {/* <button onClick={handleCreateMusician}>Add Musician</button>
-      <button onClick={handleDeleteMusician}>Delete Musician</button> */}
+      <button onClick={handleCreateMusician}>Add Musician</button>
+      {/* <button onClick={handleDeleteMusician}>Delete Musician</button> */}
     </>
   );
 };
